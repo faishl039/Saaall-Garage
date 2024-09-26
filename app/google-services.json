@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "435453709385",
+    "project_id": "database-saaallgarage",
+    "storage_bucket": "database-saaallgarage.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435453709385:android:3d3f2e40365469555b0398",
+        "android_client_info": {
+          "package_name": "com.example.katalogsaaallgarage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435453709385-h7mc9gi758g6e5es24rem3sdeu7j3o0l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.katalogsaaallgarage",
+            "certificate_hash": "7e1b6c455b63b8812512f2dda7e61dab6530ebd2"
+          }
+        },
+        {
+          "client_id": "435453709385-maoch9ds8l882b6685b72joaogf5li60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCUyUYSbzcV0_COJ6VAFzsmEDOvQUyyQR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435453709385-maoch9ds8l882b6685b72joaogf5li60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">Katalog Saaall Garage</string>
+    <string name="kontak">Kontak</string>
+    <string name="nama">Faishal Akbar Syahputra</string>
+    <string name="email">faishalakbarsyahputra@gmail.com</string>
+    <string name="nama_barang">Nama Barang</string>
+    <string name="deskripsi">Deskripsi Barang</string>
+    <string name="login">Lets Login!</string>
+    <string name="alamat_email">Email</string>
+    <string name="kata_sandi">Password</string>
+    <string name="masuk">Sign In</string>
+    <string name="apakah_anda_belum_punya_akun">Belum memiliki akun?</string>
+    <string name="daftar">Sign Up</string>
+    <string name="sign_up">Lets Sign Up</string>
+    <string name="nama_lengkap">Nama</string>
+    <string name="konfirmasi_kata_sandi">Ulang Password</string>
+    <string name="punya_akun">Sudah punya akun?</string>
+    <string name="your_web_client_id">435453709385-maoch9ds8l882b6685b72joaogf5li60.apps.googleusercontent.com</string>
+
+    <string-array name="list_katalog_barang">
+        <item>Big Brake Kit Spoon</item>
+        <item>ETC 2.0</item>
+        <item>Foglight Honda Access</item>
+        <item>Frame Plate Honda Access</item>
+        <item>Wheel Nut Spoon</item>
+        <item>Oil Filler Cap Spoon</item>
+        <item>Shiftknob Spoon</item>
+        <item>Sports Pedal Honda Access</item>
+        <item>Sports Wiper Blade</item>
+        <item>Spoon SW388</item>
+    </string-array>
+
+    <string-array name="desc_katalog_barang">
+        <item>Twin block caliper set The purpose is to reduce unsprung weight. One genuine caliper weighs 5200g, while a twin block caliper weighs 2400g.
+            By using 4 pots facing each other with different diameters, delicate braking and control are possible, and due to the weight reduction under the unsprung,
+            the tires ground contact and tracking performance are dramatically improved, and the burden on the brakes, tires, etc. is greatly reduced. will be done.
+            It can be bolted on to EK9, DC2, and DB8 (98 spec), and the brake pads are the same shape as the genuine EK9.\n\nColor: Blue \nStock : 3 Set \nPrice: Rp36.000.000 (negotiable)
+            \nInclude Rotor Dixcel, Brakepad Dixcel, and Brakeline HEL</item>
+        <item>Compatible with various services of "ETC 2.0". It is also equipped with an ETC function, and the navigation screen and voice will guide you to the price,
+            and you will also be notified of the expiration date of your ETC card. You can also check the history on the navigation screen. Application Navigation:
+            Gathers Navi\n\nColor: Black \nStock : 3 Set \nPrice: Rp900.000 \nUsed Item</item>
+        <item>These genuine Honda Access LED fog lights are for the 2016+ Civic Sport and Civic Type-R hatchbacks. These fog lights feature a 3100K yellow color.
+            LED do no use filaments like typical halogen bulbs so they have a long service life and less frequent maintenance. Power consumption is ¼ until ½ that of halogen
+            bulbs which helps reduce burden on the battery. Low glare and  reflector design is easy for oncoming vehicles and pedestrians. Designed by Honda, as the fitment
+            will be absolutely perfect.\n\nColor: Blue \nStock : 3 Set \nPrice: Rp4.500.000 (negotiable)</item>
+        <item>This is a genuine JDM Honda Front and Rear license frame with berliana black finish and includes theft deterrent hardware.Note: This frame does not fit
+            US license plate frames properly. Designed for JDM license plates.\n\nColor: Berliana Black \nStock : 9 Set \nPrice: Rp2.100.000 (negotiable)</item>
+        <item>M12 x 1.5 pitch, Total length 35mm, 60° taper. This wheel nut fit for FIT, VEZEL, N-ONE, S660, CIVIC FK, INTEGRA, CIVIC , N-BOX, N-WGN, N-VAN, N-BOX CUSTOM,
+            S2000, CIVIC, CR-Z, NSX, TORNEO, ACCORD, FREED\n\nColor: Blue \nStock : 1 Set \nPrice: Rp3.800.000 (negotiable)</item>
+        <item>Most race engines such as the Civic use the stock plastic cap because it cracks due to vibration. Its not just about fashion. This cap fit for 	FIT, VEZEL, N-ONE,
+            S660, CIVIC FK, INTEGRA, CIVIC , N-BOX, N-WGN, N-VAN, CIVIC FL, S2000, CIVIC, CR-Z, NSX, TORNEO, ACCORD, FREED\n\nColor: Silver Polish \nStock : 2 Set \nPrice: Rp2.400.000 (negotiable)</item>
+        <item>Product number: ALL54102001. M10xP1.5. Compatible models: CIVIC, TORNEO, ACCORD, INTEGRA, FIT. Also Compatible with EG6, early EK4, late EK4, early EK9,
+            late EK9, CL1 Euro R, DC2 type R96Spec, DC2 type R98Spec, DB8 type R96Spec, DB8 type R98Spec, GD3 1.5S MT, GE8RS late MT\n\nColor: Black \nStock : 3 Set
+            \nPrice: Rp1.100.000 (net)</item>
+        <item>Genuine Honda Access / Modulo aluminum sport pedal set for 5/6-speed 2014+ Honda. Vehicle application: 2014+ Honda Fit M/T (GK). Note: will not fit older
+            Honda vehicles; these pedals are a much smaller size\n\nColor: Silver Polish \nStock : 4 Set \nPrice: Rp2.700.000 (negotiable)</item>
+        <item>In order to bring out the original performance of the wiper blades, it is equipped with a uniquely shaped window deflector, which utilizes the driving wind
+            to ensure surface pressure on the wiper blades when driving at high speeds in rainy weather, and prevents wiper lifting (blade lifting). At the same time, the
+            surface pressure is evenly applied to the wiper blade, which greatly extends the life of the blade.High-quality baked coating provides excellent corrosion resistance.Easy to replace
+            your existing wiper blade. Wearing.(About 2 minutes)\n\nColor: Black \nStock : 5 Set \nPrice: Rp2.100.000 (net)</item>
+        <item>The iconic SW388 is synonymous with spoons. We have continued to receive requests for resale from Honda fans around the world, and we have been exploring various
+            possibilities and considering remanufacturing Spoon. Remaining true to the spirit of the time, we will begin manufacturing and selling the new SW388 using the
+            forging cutting method, ALL Made In Japan, at Tan-ei-sya in Toyama Prefecture, one of Japans leading forged wheel manufacturers. Matte black alumite treatment
+            that is lighter and stronger than painting.\n\nColor: Black \nStock : 1 Set \nPrice: Rp42.100.000 (net) \nSpecs: 15" 6.5J+35 4H100\nUsed item like new no repaint no dent</item>
+    </string-array>
+
+    <integer-array name="foto_katalog_barang">
+        <item>@drawable/bbk</item>
+        <item>@drawable/etcv2</item>
+        <item>@drawable/foglight</item>
+        <item>@drawable/frameplate</item>
+        <item>@drawable/lugnut</item>
+        <item>@drawable/oilcap</item>
+        <item>@drawable/shiftknob</item>
+        <item>@drawable/sportsmt</item>
+        <item>@drawable/wiper</item>
+        <item>@drawable/sw388</item>
+    </integer-array>
+</resources>
