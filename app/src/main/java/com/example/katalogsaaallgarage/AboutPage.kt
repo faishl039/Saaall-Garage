@@ -1,5 +1,6 @@
 package com.example.katalogsaaallgarage
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -26,7 +27,7 @@ class AboutPage : AppCompatActivity() {
 
         val user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
-            binding.teksNama.text = user.displayName
+            binding.teksNama.text = user.email
         } else {
             binding.teksNama.text = "not login"
         }
@@ -34,6 +35,9 @@ class AboutPage : AppCompatActivity() {
         binding.btnLogout.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(this, "anda telah logout", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
             finish()
         }
     }
