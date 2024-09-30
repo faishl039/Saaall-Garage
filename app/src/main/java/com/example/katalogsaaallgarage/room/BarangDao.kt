@@ -20,4 +20,7 @@ interface BarangDao {
 
     @Query("SELECT * FROM barang")
     suspend fun getBarang(): List<Barang>
+
+    @Query("SELECT * FROM barang WHERE id=:barang_id")
+    suspend fun getIdBarang(barang_id: Int): List<Barang>
 }

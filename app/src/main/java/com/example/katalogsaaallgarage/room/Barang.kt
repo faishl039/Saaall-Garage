@@ -8,5 +8,6 @@ data class Barang (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val title: String,
-    val desc: String
+    val desc: String,
+    val image: String?
 )

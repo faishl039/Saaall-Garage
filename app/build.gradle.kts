@@ -64,4 +64,6 @@ dependencies {
     //coroutines
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    implementation("androidx.activity:activity-ktx:1.9.2")
 }
