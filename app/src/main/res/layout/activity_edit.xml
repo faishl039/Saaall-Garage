@@ -8,67 +8,88 @@
     android:padding="20dp"
     tools:context=".EditActivity">
 
-    <EditText
-        android:id="@+id/edit_title"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inplaytitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:hint="Nama Barang"
-        android:minHeight="48dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/edit_desc"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inplaydesc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="top"
         android:hint="Deskripsi Barang"
-        android:minLines="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
+        app:layout_constraintTop_toBottomOf="@+id/inplaytitle">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="10dp"
-        android:contentDescription="Barang Image"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_desc" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:minLines="3" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/button_select_image"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inplaystock"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Pilih Gambar"
+        android:hint="Stock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/inplaydesc">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_stock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inplayprice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Harga"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inplaystock">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/button_save"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Simpan"
+        android:text="SAVE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_select_image" />
+        app:layout_constraintTop_toBottomOf="@+id/inplayprice" />
 
     <Button
         android:id="@+id/button_update"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Update"
+        android:text="UPDATE"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_save" />

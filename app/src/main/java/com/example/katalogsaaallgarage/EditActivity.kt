@@ -1,12 +1,11 @@
 package com.example.katalogsaaallgarage
 
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.katalogsaaallgarage.databinding.ActivityEditBinding
 import com.example.katalogsaaallgarage.room.Barang
@@ -22,41 +21,16 @@ class EditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditBinding
     private val db by lazy { BarangDB(this) }
     private var barangId: Int = 0
-    private var selectedImgUri: Uri? = null
 
-    private val pickImageLauncher = registerForActivityResult(
-        ActivityResultContracts.OpenDocument()
-    ) { uri: Uri? ->
-        uri?.let {
-            handleSelectedImage(it)
-        } ?: run {
-            Toast.makeText(this, "Gagal memilih gambar.", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            selectImg()
-        } else {
-            Toast.makeText(
-                this,
-                "Izin ditolak. Tidak dapat mengakses penyimpanan.",
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonSelectImage.setOnClickListener {
-            selectImg()
-        }
+        binding.buttonSave.isEnabled = false
+        binding.buttonUpdate.isEnabled = false
+
         setupView()
         setupListener()
         barangId = intent.getIntExtra("barang_id", 0)
@@ -64,6 +38,24 @@ class EditActivity : AppCompatActivity() {
 
     private fun setupListener() {
 
+        val editTexts = listOf(
+            binding.editTitle,
+            binding.editDesc,
+            binding.editStock,
+            binding.editPrice
+        )
+
+        // TextWatcher untuk memantau perubahan pada semua EditText
+        for (editText in editTexts) {
+            editText.addTextChangedListener(object : TextWatcher {
+                override fun afterTextChanged(s: Editable?) {
+                    validateFields()  // Panggil fungsi untuk memvalidasi field
+                }
+
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            })
+        }
 
         binding.buttonSave.setOnClickListener {
             addBarang()
@@ -74,34 +66,27 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
-    private fun selectImg() {
-        pickImageLauncher.launch(arrayOf("image/*")) // Menampilkan hanya file gambar
-    }
+    private fun validateFields() {
+        val isAllFieldsFilled = binding.editTitle.text.toString().isNotEmpty() &&
+                binding.editDesc.text.toString().isNotEmpty() &&
+                binding.editStock.text.toString().isNotEmpty() &&
+                binding.editPrice.text.toString().isNotEmpty()
 
-
-    private fun handleSelectedImage(uri: Uri) {
-        try {
-            val inputStream = contentResolver.openInputStream(uri)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            binding.imageView.setImageBitmap(bitmap)
-            binding.imageView.visibility = View.VISIBLE
-            selectedImgUri = uri // Simpan URI untuk digunakan nanti
-        } catch (e: Exception) {
-            e.printStackTrace()
-            Toast.makeText(this, "Gagal memuat gambar.", Toast.LENGTH_SHORT).show()
-        }
+        // Jika semua field terisi, button Save dan Update diaktifkan, jika tidak dinonaktifkan
+        binding.buttonSave.isEnabled = isAllFieldsFilled
+        binding.buttonUpdate.isEnabled = isAllFieldsFilled
     }
 
 
     private fun addBarang() {
         CoroutineScope(Dispatchers.IO).launch {
-            val imgPath = selectedImgUri.toString()
             db.barangDao().addBarang(
                 Barang(
                     0,
                     binding.editTitle.text.toString(),
                     binding.editDesc.text.toString(),
-                    imgPath
+                    binding.editStock.text.toString().toInt(),
+                    binding.editPrice.text.toString(),
                 )
             )
             withContext(Dispatchers.Main) {
@@ -117,7 +102,8 @@ class EditActivity : AppCompatActivity() {
                     barangId,
                     binding.editTitle.text.toString(),
                     binding.editDesc.text.toString(),
-                    selectedImgUri.toString()
+                    binding.editStock.text.toString().toInt(),
+                    binding.editPrice.text.toString(),
                 )
             )
             withContext(Dispatchers.Main) {
@@ -154,42 +140,13 @@ class EditActivity : AppCompatActivity() {
             val barang = db.barangDao().getIdBarang(barangId)
             if (barang != null && barang.isNotEmpty()) {
                 val selectedBarang = barang[0]
-                binding.editTitle.setText(selectedBarang.title)
-                binding.editDesc.setText(selectedBarang.desc)
-                selectedImgUri = Uri.parse(selectedBarang.image)
-                Log.d("EditActivity", "URI gambar: $selectedImgUri")
-
                 withContext(Dispatchers.Main) {
-                    try {
-                        // Pastikan Anda memeriksa jika selectedImgUri tidak null
-                        selectedImgUri?.let {
-                            val inputStream = contentResolver.openInputStream(it)
-                            val bitmap = BitmapFactory.decodeStream(inputStream)
-                            binding.imageView.setImageBitmap(bitmap)
-                            binding.imageView.visibility = View.VISIBLE
-                        } ?: run {
-                            Toast.makeText(
-                                this@EditActivity,
-                                "URI gambar tidak valid.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    } catch (e: SecurityException) {
-                        Log.e("EditActivity", "Permission Denial: ${e.message}")
-                        Toast.makeText(
-                            this@EditActivity,
-                            "Gagal memuat gambar. Izin mungkin ditolak.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        Toast.makeText(
-                            this@EditActivity,
-                            "Gagal memuat gambar.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    binding.editTitle.setText(selectedBarang.title)
+                    binding.editDesc.setText(selectedBarang.desc)
+                    binding.editStock.setText(selectedBarang.stock.toString())
+                    binding.editPrice.setText(selectedBarang.price)
                 }
+
             } else {
                 Log.e("EditActivity", "Barang tidak ditemukan")
                 withContext(Dispatchers.Main) {
@@ -199,6 +156,7 @@ class EditActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun intentType(): Int {
         return intent.getIntExtra("intent_type", 0)
     }

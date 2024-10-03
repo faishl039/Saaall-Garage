@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
     entities = [Barang::class],
-    version = 2
+    version = 5
 )
 abstract class BarangDB : RoomDatabase() {
 
@@ -30,10 +30,10 @@ abstract class BarangDB : RoomDatabase() {
             context.applicationContext,
             BarangDB::class.java,
             "BarangJualan.db"
-        ).addMigrations(MIGRATION_1_2)
+        ).addMigrations(MIGRATION_1_5)
             .build()
 
-        val MIGRATION_1_2 = object : Migration(1, 2) {
+        val MIGRATION_1_5 = object : Migration(1, 4) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("DROP TABLE IF EXISTS Barang")
                 // Kemudian buat tabel baru seperti sebelumnya

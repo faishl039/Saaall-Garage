@@ -9,5 +9,6 @@ data class Barang (
     val id: Int,
     val title: String,
     val desc: String,
-    val image: String?
+    val stock: Int,
+    val price: String
 )

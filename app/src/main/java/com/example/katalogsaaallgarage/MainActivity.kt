@@ -1,15 +1,12 @@
 package com.example.katalogsaaallgarage
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,13 +30,6 @@ class MainActivity : AppCompatActivity() {
 //        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), REQ_CODE_PERM)
-        } else {
-//            accessGallery()
-        }
 
         createKatalog()
         setupRV()
@@ -66,15 +56,15 @@ class MainActivity : AppCompatActivity() {
     private fun setupRV() {
         katalogAdapter = KatalogAdapter(arrayListOf(), object : KatalogAdapter.OnAdapterListener {
             override fun onRead(barang: Barang) {
-                intentEdit(Constant.TYPE_READ, barang.id) // Membuka EditActivity dengan mode baca
+                intentEdit(Constant.TYPE_READ, barang.id)
             }
 
             override fun onUpdate(barang: Barang) {
-                intentEdit(Constant.TYPE_UPDATE, barang.id) // Membuka EditActivity dengan mode update
+                intentEdit(Constant.TYPE_UPDATE, barang.id)
             }
 
             override fun onDelete(barang: Barang) {
-                deleteAlert(barang) // Menampilkan dialog konfirmasi hapus
+                deleteAlert(barang)
             }
         })
 
@@ -95,9 +85,9 @@ class MainActivity : AppCompatActivity() {
             }
             setPositiveButton("Hapus") { dialogInterface, _ ->
                 CoroutineScope(Dispatchers.IO).launch {
-                    db.barangDao().deleteBarang(barang) // Menghapus barang dari database
+                    db.barangDao().deleteBarang(barang)
                     dialogInterface.dismiss()
-                    loadData() // Memuat ulang data setelah penghapusan
+                    loadData()
                 }
             }
         }
@@ -108,8 +98,8 @@ class MainActivity : AppCompatActivity() {
     private fun createKatalog() {
         binding.buttonCreate.setOnClickListener {
             startActivity(Intent(this, EditActivity::class.java).apply {
-                putExtra("barang_id", 0) // Atau nilai default lainnya
-                putExtra("intent_type", Constant.TYPE_CREATE) // Pastikan untuk mendefinisikan Constant.TYPE_CREATE
+                putExtra("barang_id", 0)
+                putExtra("intent_type", Constant.TYPE_CREATE)
             })
         }
 
@@ -117,9 +107,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
-            val getBarang = db.barangDao().getBarang() // Memuat data dari database
+            val getBarang = db.barangDao().getBarang()
             withContext(Dispatchers.Main) {
-                katalogAdapter.setData(getBarang) // Mengupdate adapter dengan data yang diambil
+                katalogAdapter.setData(getBarang)
             }
         }
     }
@@ -148,20 +138,5 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQ_CODE_PERM) {
-            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                // Izin diberikan, akses galeri
-//                accessGallery()
-            } else {
-                // Izin ditolak, tampilkan pesan kepada pengguna
-            }
-        }
-    }
-
-    companion object {
-        private const val REQ_CODE_PERM = 123
-    }
 
 }
