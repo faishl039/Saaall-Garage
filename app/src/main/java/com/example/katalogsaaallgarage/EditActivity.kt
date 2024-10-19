@@ -67,15 +67,33 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun validateFields() {
-        val isAllFieldsFilled = binding.editTitle.text.toString().isNotEmpty() &&
-                binding.editDesc.text.toString().isNotEmpty() &&
-                binding.editStock.text.toString().isNotEmpty() &&
-                binding.editPrice.text.toString().isNotEmpty()
+        val title = binding.editTitle.text.toString()
+        val desc = binding.editDesc.text.toString()
+        val stock = binding.editStock.text.toString()
+        val priceStr = binding.editPrice.text.toString()
 
-        // Jika semua field terisi, button Save dan Update diaktifkan, jika tidak dinonaktifkan
-        binding.buttonSave.isEnabled = isAllFieldsFilled
-        binding.buttonUpdate.isEnabled = isAllFieldsFilled
+        // Reset error di TextInputLayout harga
+        binding.inplayprice.error = null
+
+        val isAllFieldsFilled = title.isNotEmpty() &&
+                desc.isNotEmpty() &&
+                stock.isNotEmpty() &&
+                priceStr.isNotEmpty()
+
+        // Cek apakah harga kurang dari 1000
+        val price = priceStr.toIntOrNull()
+        if (price != null && price < 1000) {
+            binding.inplayprice.error = "Tidak ada harga barang dibawah 1000"
+            binding.buttonSave.isEnabled = false
+            binding.buttonUpdate.isEnabled = false
+            return
+        }
+
+        // Aktifkan button jika semua field terisi dan harga valid
+        binding.buttonSave.isEnabled = isAllFieldsFilled && price != null && price >= 1000
+        binding.buttonUpdate.isEnabled = isAllFieldsFilled && price != null && price >= 1000
     }
+
 
 
     private fun addBarang() {

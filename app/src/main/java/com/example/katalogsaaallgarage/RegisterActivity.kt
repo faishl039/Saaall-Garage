@@ -2,6 +2,8 @@ package com.example.katalogsaaallgarage
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -25,6 +27,9 @@ class RegisterActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
+//        binding.btnRegister.isEnabled = false
+        setupTextWatchers()
+
         binding.btnLogin.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
@@ -34,35 +39,10 @@ class RegisterActivity : AppCompatActivity() {
             val email = binding.email.text.toString()
             val password = binding.password.text.toString()
 
-            //Validasi email
-            if (email.isEmpty()) {
-                binding.email.error = "Email Harus Diisi"
-                binding.email.requestFocus()
-                return@setOnClickListener
+            // Pastikan tidak ada error yang ditampilkan sebelum mencoba registrasi
+            if (isFormValid()) {
+                RegisterFirebase(email, password)
             }
-
-            //Validasi email tidak sesuai
-            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                binding.email.error = "Email Tidak Valid"
-                binding.email.requestFocus()
-                return@setOnClickListener
-            }
-
-            //Validasi password
-            if (password.isEmpty()) {
-                binding.password.error = "Password Harus Diisi"
-                binding.password.requestFocus()
-                return@setOnClickListener
-            }
-
-            //Validasi panjang password
-            if (password.length < 6) {
-                binding.passwordConf.error = "Password Minimal 6 Karakter"
-                binding.passwordConf.requestFocus()
-                return@setOnClickListener
-            }
-
-            RegisterFirebase(email, password)
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -70,6 +50,81 @@ class RegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    // Fungsi untuk setup TextWatcher
+    private fun setupTextWatchers() {
+        binding.fullName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s.isNullOrEmpty()) {
+                    binding.fullName.error = "Nama harus diisi"
+                } else {
+                    binding.fullName.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.email.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val email = s.toString()
+                if (email.isEmpty()) {
+                    binding.email.error = "Email harus diisi"
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    binding.email.error = "Domain email tidak ada (@example.com)"
+                } else {
+                    binding.email.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.password.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val password = s.toString()
+                if (password.isEmpty()) {
+                    binding.password.error = "Password harus diisi"
+                } else if (password.length <= 6) {
+                    binding.password.error = "Password harus lebih dari 6 karakter"
+                } else {
+                    binding.password.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.passwordConf.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val confirmPassword = s.toString()
+                val password = binding.password.text.toString()
+                if (confirmPassword.isEmpty()) {
+                    binding.passwordConf.error = "Confirm Password harus diisi"
+                } else if (confirmPassword != password) {
+                    binding.passwordConf.error = "Password tidak sesuai"
+                } else {
+                    binding.passwordConf.error = null
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    // Fungsi untuk mengecek validasi form secara keseluruhan
+    private fun isFormValid(): Boolean {
+        val isFullNameValid = binding.fullName.error == null
+        val isEmailValid = binding.email.error == null
+        val isPasswordValid = binding.password.error == null
+        val isConfirmPasswordValid = binding.passwordConf.error == null
+
+        return isFullNameValid && isEmailValid && isPasswordValid && isConfirmPasswordValid
     }
 
     private fun RegisterFirebase(email: String, password: String) {

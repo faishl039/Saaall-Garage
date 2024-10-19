@@ -49,8 +49,8 @@ class LoginActivity : AppCompatActivity() {
 
             //Validasi email tidak sesuai
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                binding.password.error = "Email Tidak Valid"
-                binding.password.requestFocus()
+                binding.email.error = "Email Tidak Valid"
+                binding.email.requestFocus()
                 return@setOnClickListener
             }
 
